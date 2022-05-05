@@ -646,3 +646,4 @@ public class TestBase {
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);",ele);
         }
     }
+
