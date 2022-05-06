@@ -1,3 +1,4 @@
+#feature to check top 250 movies
 Feature: check whether given movie is in IMDB top 250 list or not
   Scenario: Check a single movie
     Given  I am in IMDB website
