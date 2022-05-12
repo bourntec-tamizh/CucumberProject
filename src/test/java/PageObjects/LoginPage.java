@@ -24,7 +24,7 @@ public class LoginPage extends TestBase {
     }
 
     public void openBrowser() throws IOException {
-        browser= ConfigReader.getConfigValue("Browser");
+
         try {
             logger.info("Browser selected#" + browser);
             logger.info("Operating System#" + System.getProperty("os.name"));

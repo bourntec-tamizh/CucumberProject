@@ -16,7 +16,6 @@ public class Hooks extends TestBase{
     @Before
     public void InitiateExtentReport(Scenario scenario) {
         System.out.println("Cucumber Before");
-        reports=new ExtentReports();
         test = reports.createTest("Scenario: "+scenario.getName());
     }
 
