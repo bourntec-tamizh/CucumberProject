@@ -1,5 +1,6 @@
 package stepDefinations;
 
+import com.aventstack.extentreports.ExtentReports;
 import io.cucumber.java.*;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -7,19 +8,21 @@ import org.openqa.selenium.WebDriverException;
 
 public class Hooks extends TestBase{
 
-    @BeforeStep
+  /*  @BeforeStep
     public void beforeStep(){
         System.out.println("Cucumber Before Step");
-    }
+    }*/
 
     @Before
     public void InitiateExtentReport(Scenario scenario) {
         System.out.println("Cucumber Before");
+        reports=new ExtentReports();
         test = reports.createTest("Scenario: "+scenario.getName());
     }
 
     @After
-    public void closeExtentReport(Scenario scenario){
+    public void closeExtentReport(Scenario scenario)
+    {
         System.out.println("Cucumber After");
         if(scenario.getStatus().toString().equalsIgnoreCase("PASSED")){
             test.info("Test Case completed")   ;
@@ -29,7 +32,7 @@ public class Hooks extends TestBase{
         reports.flush();
     }
 
-    @AfterStep
+   /* @AfterStep
     public  void screenshotAfterScenario(Scenario scenario) {
         System.out.println("Cucumber After Step ");
 //        if (scenario.isFailed()) {
@@ -44,5 +47,5 @@ public class Hooks extends TestBase{
 //                }
 //            }
 //        }
-    }
+    }*/
 }

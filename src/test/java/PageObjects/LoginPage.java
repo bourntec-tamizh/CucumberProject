@@ -1,5 +1,6 @@
 package PageObjects;
 
+import libraries.ConfigReader;
 import libraries.Validations;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -19,9 +20,11 @@ public class LoginPage extends TestBase {
 
     private void InitElements() {
 
+
     }
 
     public void openBrowser() throws IOException {
+        browser= ConfigReader.getConfigValue("Browser");
         try {
             logger.info("Browser selected#" + browser);
             logger.info("Operating System#" + System.getProperty("os.name"));

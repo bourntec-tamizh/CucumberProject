@@ -9,6 +9,7 @@ public class UnitedHomeStepDef {
     LoginPage loginPage = new LoginPage();
     HomePage homePage =  new HomePage();
 
+
     @When("^User open united home page$")
     public void user_open_united_home_page() throws Throwable {
         loginPage.openBrowser();

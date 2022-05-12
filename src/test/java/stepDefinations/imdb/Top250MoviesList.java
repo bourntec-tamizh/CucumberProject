@@ -38,7 +38,7 @@ public class Top250MoviesList extends TestBase {
             }
             else if(i==movies.size()-1)
             {
-                System.out.println(moviename+"is not in top 250 list");
+                System.out.println(moviename+" is not in top 250 list");
                 break;
             }
             else continue;
