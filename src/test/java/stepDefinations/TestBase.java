@@ -1,5 +1,6 @@
 package stepDefinations;
 
+import PageObjects.HomePage;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
@@ -17,9 +18,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TestBase {
     public static Map<String, String> world = new HashMap<>();
@@ -114,12 +113,14 @@ public class TestBase {
 
         public boolean sendKeys(By element, Keys text) {
             try {
-                driver.findElement(element).sendKeys(text);
+                driver.findElement(element).sendKeys(text
+                );
             } catch (Exception e) {
                 logger.error("Element Not clicked " + e);
             }
             return true;
         }
+
 
         public boolean sendKeys(By element, String text) {
             try {

@@ -22,7 +22,7 @@ import java.util.Calendar;
 //                        ,"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter"
                 },
                 glue = {"stepDefinations"},
-                tags = "@RUN")
+                tags = "'@car','@flight'")
 
 public class TestRunner extends AbstractTestNGCucumberTests {
     String tags = "";
