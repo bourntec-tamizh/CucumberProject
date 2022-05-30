@@ -72,14 +72,17 @@ public class PackageBooking extends TestBase {
     {
         if(packageType.contains("Flight and hotel"))
         {
+            click(flightAndHotel);
             actionClick(flightAndHotel);
         }
         else if(packageType.contains("Flight, hotel and car"))
         {
+            click(flightHotelAndCar);
             actionClick(flightHotelAndCar);
         }
         else if(packageType.contains("Flight and car"))
         {
+            click(flightAndCar);
             actionClick(flightAndCar);
         }
         pause(2000);

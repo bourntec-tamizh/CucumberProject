@@ -65,7 +65,7 @@ public class UIStepDef {
     }
 
     @And("I select to date as {string}")
-    public void iSelectToDateAs(String toDate) {
+    public void iSelectToDateAs(String toDate) throws Exception {
         homePage.selectToDate(toDate);
     }
 }

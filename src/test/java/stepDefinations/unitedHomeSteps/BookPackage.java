@@ -7,6 +7,9 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import java.util.Iterator;
@@ -56,8 +59,8 @@ public class BookPackage {
 
 
 
-    @Then("a result page opens in new tab and contains details {string} {string} {string} {string} {string} {string}")
-    public void aResultPageOpensInNewTabAndContainsDetails(String arg0, String arg1, String arg2, String arg3, String arg4, String arg5) throws Exception {
+    @Then("a result page opens in new tab and contains details")
+    public void aResultPageOpensInNewTabAndContainsDetails() throws Exception {
         String mainWindowHandle = homePage.driver.getWindowHandle();
         Set<String> allWindowHandles = homePage.driver.getWindowHandles();
         Iterator<String> iterator = allWindowHandles.iterator();
@@ -70,28 +73,13 @@ public class BookPackage {
                 break;
             }
         }
-        HomePage.waitForPageLoad();
-        List<WebElement> results=homePage.driver.findElements(By.xpath("//div[contains(@class,'kOrHSG')]//div[@font-size=1]"));
-        for (int i=0;i<4;i++)
-        {
-            if(i==0)
-            {
-               Assert.assertTrue(results.get(i).getText().trim().contains(arg0));
-            }
-            else if(i==1)
-            {
-                Assert.assertTrue(results.get(i).getText().trim().contains(arg1));
-            }
-            else if(i==2)
-            {
-                Assert.assertTrue(results.get(i).getText().trim().contains(arg2) && results.get(i).getText().trim().contains(arg3));
-            }
-            else if(i==3)
-            {
-                Assert.assertTrue(results.get(i).getText().trim().contains(arg4.split("")[0]) && results.get(i).getText().trim().contains(arg5));
-            }
-        }
-
+        WebDriverWait wait = new WebDriverWait(HomePage.driver, 10);
+        List<WebElement> results=wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[contains(@class,'kOrHSG')]//div[@font-size=1]")));
+        HomePage.test.info("From city: "+results.get(0).getText().split(",")[0]);
+        HomePage.test.info("To city: "+results.get(0).getText().split(",")[1]);
+        HomePage.test.info("Departure date: "+results.get(1).getText().split("-")[0]);
+        HomePage.test.info("return date: "+results.get(1).getText().split("-")[1]);
+        HomePage.test.info("Traveler and room details: "+results.get(2).getText());
 
     }
 }

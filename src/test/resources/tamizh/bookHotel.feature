@@ -47,7 +47,7 @@ Feature: This features books hotel
     And Enter checkout "<valid check-out>" date
     And Enter no of rooms "<number of rooms>"
     And Press find hotels
-    Then a new tab opens with error message "Sorry, we couldn't find the page you were looking for" or "This page isn’t working"
+    Then "Please enter a valid destination" error message should be shown
     Examples:
       | invalid destination | valid check-in | valid check-out | number of rooms |
       | xhwjdhsa678         | May 15         | Jun 09          | 4               |

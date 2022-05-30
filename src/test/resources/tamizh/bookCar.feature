@@ -18,7 +18,7 @@ Feature: This feature books cars
     Then list of cars available shows in new tab
     Examples:
       | pickup location                              | Pick up date | drop off date |
-      | Washington                                   | May 18       | Jun 08        |
+      | Washington                                   | May 30       | Jun 08        |
 
   Scenario Outline: book with different drop off location and driver age<25
     When User open united home page
@@ -40,7 +40,7 @@ Feature: This feature books cars
 
     Examples:
       | pickup location                              | drop off location                      | Pick up date | drop off date | driver age |
-      | Washington                                   | Virginia                               | May 18       | May 25        | 22         |
+      | Washington                                   | Virginia                               | May 30       | Jun 10        | 22         |
 
 
   Scenario: book with all blank details

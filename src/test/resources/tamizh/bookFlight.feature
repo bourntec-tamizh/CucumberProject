@@ -14,8 +14,8 @@ Feature: flight booking
     And Click find flights
     Then a list of flight details should be shown
     Examples:
-      | journeyType | fromCity    | toCity         | fromDate | toDate | travelers        | passengerCount | class           |
-      | Roundtrip   | Chicago ORD | Charleston CHS | Jun 08   | Jul 07 | Adults (18 - 64) | 5              | Premium economy |
+      | journeyType | fromCity       | toCity              | fromDate | toDate | travelers        | passengerCount | class           |
+      | Roundtrip   | Washington IAD | New York/Newark EWR | May 31   | Jun 13 | Adults (18 - 64) | 5              | Premium economy |
   # | Roundtrip   | Anchorage ANC | Telluride TEX  | Jun 08   | Jul 07 | Seniors (65+)    | 4              | Business        |
 
   Scenario Outline: successful oneway flight booking
@@ -34,14 +34,16 @@ Feature: flight booking
       | oneway      | Texarkana TXK | Miami MIA | Jul 23   | Seniors (65+) | 5              | Premium economy |
   #  | Roundtrip   | Anchorage ANC | Telluride TEX  | Jun 08   | Seniors (65+)    | 4              | Business        |
 
+
   Scenario Outline: clicking find flights without any details
     Given User open united home page
     And User selects Book tab
     When user select journeytype "<journeyType>"
+    And clear all the details in "<journeyType>" "flight"
     And Click find flights
     Then ensure below error messages are shown
-      | Sorry, no results have been found. Please enter a different origin location or expand your search area |
-  #| Please enter a valid origin | Please enter a valid destination | Please enter a valid departure date |
+     # | Sorry, no results have been found. Please enter a different origin location or expand your search area |
+      | Please enter a valid origin | Please enter a valid destination | Please enter a valid departure date |
     Examples:
       | journeyType |
       | oneway      |

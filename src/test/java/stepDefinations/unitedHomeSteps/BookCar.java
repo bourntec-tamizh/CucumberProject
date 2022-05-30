@@ -127,7 +127,11 @@ public class BookCar {
 
     @And("Input drop off location {string}")
     public void inputDropOffLocation(String arg0) {
+
         homePage.sendKeys(homePage.getBookCarDropoffInput(),arg0);
+        homePage.waitUntilElementIsClickable(homePage.getBookCarDropoffInput_menu(),3000);
+        List<WebElement> inputOptions=homePage.driver.findElements(homePage.getBookCarDropoffInput_menu());
+        homePage.actionClick(inputOptions.get(rand.nextInt(inputOptions.size())));
         HomePage.test.info("drop off location entered as "+arg0);
     }
 
@@ -160,7 +164,8 @@ public class BookCar {
             for (String msg:errorMessage)
             {
                 errorMsgLocator=By.xpath("//span[contains(text(),'"+msg+"')]");
-                Assert.assertTrue(homePage.getTextFromElement(errorMsgLocator).contains(msg));
+                Assert.assertTrue(homePage.driver.findElement(errorMsgLocator).getText().contains(msg));
+                HomePage.test.pass(msg+" is present.");
 
             }
 

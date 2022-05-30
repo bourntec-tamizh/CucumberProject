@@ -50,7 +50,7 @@ public class HomePage extends TestBase {
     //car booking page elements
     private By bookCarTab,bookCarPickupInput,bookCarDropoffInput,bookCarPickupDate,bookCarDropoffDate;
     private By driversAge,pickupTime,dropoffTime,showDropOffLocation,hideAgeBox,pickupTimeOptions,dropOffTimeOptions;
-    private By findCars;
+    private By findCars,bookCarDropoffInput_menu,bookCarPickupInput_menu;
 
     //package booking elements
     private  By flightAndHotel;
@@ -75,7 +75,7 @@ public class HomePage extends TestBase {
         return bookCarPickupInput_menu;
     }
 
-    private By bookCarPickupInput_menu;
+
 
 
 
@@ -90,6 +90,10 @@ public class HomePage extends TestBase {
 
     public By getToDateEdit() {
         return toDateEdit;
+    }
+
+    public By getBookCarDropoffInput_menu() {
+        return bookCarDropoffInput_menu;
     }
 
     private void InitElements() {
@@ -145,6 +149,7 @@ public class HomePage extends TestBase {
         bookCarTab=By.id("bookCarTab");
         bookCarPickupInput=By.id("bookCarPickupInput");
         bookCarPickupInput_menu=By.xpath("//ul[@id='bookCarPickupInput-menu']//li");
+        bookCarDropoffInput_menu=By.xpath("//ul[@id='bookCarDropoffInput-menu']//li");
         bookCarDropoffInput=By.id("bookCarDropoffInput");
         bookCarPickupDate=By.id("bookCarPickupDate");
         bookCarDropoffDate=By.id("bookCarDropoffDate");
@@ -295,12 +300,9 @@ public class HomePage extends TestBase {
     }
 
     public void clickOnFindFlightsButton() throws Exception {
-        if(click(findFlightsButton)){
-            test.pass("Find flights button is selected");
-        } else {
-            test.fail("Find flights button is selected");
-            Assert.fail("Find flights button is selected");
-        }
+            click(findFlightsButton);
+            test.pass("Find flights button is clicked");
+
     }
 
     public void selectTravellersMenu() throws Exception {
@@ -384,9 +386,11 @@ public class HomePage extends TestBase {
         else test.info("from date field is not available");
     }
 
-    public void selectToDate(String toDate) {
+    public void selectToDate(String toDate) throws Exception {
         if(isElementEnabled(toDateEdit)){
-            sendKeys(toDateEdit,toDate );
+            if(getAttributeValueFromElement(By.id("bookPackageTab"),"aria-selected").equalsIgnoreCase("true"))
+            sendKeys(toDateEdit,toDate+Keys.ENTER);
+            else sendKeys(toDateEdit,toDate);
             //sendKeys(fromDateEdit,Keys.ENTER);
             test.info("To Date is selected as: "+toDate);
         }
@@ -404,8 +408,8 @@ public class HomePage extends TestBase {
         test.fail("hotel tab unavailable");
     }
     }
-    public void enterHotelDestination(String destination){
-        if (isElementEnabled(hotelDestination))
+    public void enterHotelDestination(String destination) throws Exception {
+        if (click(hotelDestination))
         {
             clearText(hotelDestination);
             sendKeys(hotelDestination,destination);
@@ -432,6 +436,20 @@ public class HomePage extends TestBase {
         }
 
     }
+    public void clearAllDetails(String journeyType, String bookingType)
+    {
+        JavascriptExecutor js=(JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView();", driver.findElement(findFlightsButton));
+        if (bookingType.equalsIgnoreCase("flight"))
+        {
+            sendKeys(flightTicketOriginCity,"");
+            sendKeys(flightTicketDestinationCity,"");
+            sendKeys(fromDateEdit,"");
+            if(journeyType.equalsIgnoreCase("roundtrip"))
+                sendKeys(toDateEdit,"");
+        }
+    }
+
     public void enterHotelCheckout(String checkout) {
         if (isElementEnabled(hotelCheckoutDate))
         {

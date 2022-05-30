@@ -67,7 +67,7 @@ public class BookHotel {
     }
 
     @When("Enter destination {string}")
-    public void enterDestination(String arg0) {
+    public void enterDestination(String arg0) throws Exception {
         homePage.enterHotelDestination(arg0);
     }
 

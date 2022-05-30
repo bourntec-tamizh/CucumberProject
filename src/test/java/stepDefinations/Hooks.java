@@ -31,6 +31,7 @@ public class Hooks extends TestBase{
         reports.flush();
     }
 
+
    /* @AfterStep
     public  void screenshotAfterScenario(Scenario scenario) {
         System.out.println("Cucumber After Step ");

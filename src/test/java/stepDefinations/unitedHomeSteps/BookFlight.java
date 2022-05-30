@@ -9,7 +9,11 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import stepDefinations.TestBase;
 
 import java.io.IOException;
 
@@ -37,7 +41,7 @@ public class BookFlight {
     }
 
     @And("Enter to date {string}")
-    public void enterToDate(String arg0) {
+    public void enterToDate(String arg0) throws Exception {
         homePage.selectToDate(arg0);
     }
 
@@ -56,11 +60,19 @@ public class BookFlight {
     @And("Click find flights")
     public void clickFindFlights() throws Exception {
         homePage.clickOnFindFlightsButton();
-        HomePage.pause(2000);
+        //HomePage.pause(4000);
     }
 
     @Then("a list of flight details should be shown")
     public void aListOfFlightDetailsShouldBeShown() throws Exception {
+        WebDriverWait wait = new WebDriverWait(HomePage.driver, 10);
+        WebElement alertMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class,'alert--error')]")));
+        if(alertMessage.isDisplayed())
+        {
+            HomePage.test.info("alert message displayed in resut page: "+alertMessage.getText());
+            HomePage.test.pass("test passed");
+        }
+        /*
         if(homePage.driver.findElement(homePage.getFlightInfo()).isEnabled())
         {
             homePage.logger.info("Flight Info present in result page");
@@ -69,7 +81,7 @@ public class BookFlight {
         {
             homePage.logger.info("Error message: We can't process this request. Please restart your search.");
         }
-        else Assert.fail("test failed");
+        else Assert.fail("test failed");*/
 
         /*if(homePage.driver.getPageSource().contains("We couldn't find a flight but we can still help"))
         {
@@ -125,5 +137,13 @@ public class BookFlight {
         {
             homePage.selectFlexOptions("days");
         }
+    }
+
+
+
+    @And("clear all the details in {string} {string}")
+    public void clearAllTheDetailsIn(String arg0, String arg1) {
+        homePage.clearAllDetails(arg0,arg1);
+        HomePage.pause(2000);
     }
 }
