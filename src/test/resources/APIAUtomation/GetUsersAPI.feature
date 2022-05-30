@@ -38,21 +38,25 @@ Feature: reqre.in API testing
       | id |
       | 2  |
 
-  Scenario Outline: Registration
+  Scenario Outline: Registration <type>
     When I submit register request with email "<email>" and password "<password>"
     Then verify statusCode is "<statusCode>" and error message is "<errorMessage>"
     Examples:
-      | email              | password   | statusCode | errorMessage     |
-      | eve.holt@reqres.in | pistol     | 200        |                  |
-      | sydney@fife        |            | 400        | Missing password |
+      | email              | password   | statusCode | errorMessage                 |type        |
+      | eve.holt@reqres.in | pistol     | 200        |                              |successful  |
+      | sydney@fife        |            | 400        | Missing password             |unsuccessful|
+      |                    | gkgjhkk    | 400        | Missing email or username    |unsuccessful|
+      |                    |            | 400        | Missing email or username    |unsuccessful|
 
-  Scenario Outline: Login
+  Scenario Outline: Login <type>
     When I submit login request with email "<email>" and password "<password>"
     Then verify statusCode is "<statusCode>" and error message is "<errorMessage>"
     Examples:
-      | email              | password   | statusCode       | errorMessage     |
-      | eve.holt@reqres.in | cityslicka | 200              |                  |
-      | peter@klaven       |            | 400              | Missing password |
+      | email              | password   | statusCode       | errorMessage                 |type        |
+      | eve.holt@reqres.in | cityslicka | 200              |                              |successful  |
+      | peter@klaven       |            | 400              | Missing password             |unsuccessful|
+      |                    | gkgjhkk    | 400              | Missing email or username    |unsuccessful|
+      |                    |            | 400              | Missing email or username    |unsuccessful|
 
 
   Scenario: delayed response
