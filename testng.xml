@@ -9,7 +9,7 @@
         <parameter name="browser" value="chrome" />
         <!-- Test case to run -->
         <classes>
-            <class name="runners.TestRunnerDailyRun"/>
+            <class name="runners.TestRunner_API"/>
         </classes>
     </test>
 
