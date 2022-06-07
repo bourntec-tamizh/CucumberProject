@@ -21,7 +21,7 @@ import java.util.Calendar;
                 plugin = {"pretty", "html:target/cucumber-html-report.html"
                         ,"html:target/cucumber_reports/cucumber_pretty.html"
                         ,"json:target/cucumber_reports/cucumberTestReport.json"
-//                        ,"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter"
+                        //,"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter"
                 },
                 glue = {"stepDefinations"},
                 tags = "@API")
@@ -58,7 +58,7 @@ public class TestRunner_API extends AbstractTestNGCucumberTests {
         setUpExtentReports();
     }
 
-    private void setUpExtentReports() {
+    private void setUpExtentReports() throws IOException {
         TestBase.reports = new ExtentReports();
         TestBase.reportName = System.getProperty("user.dir") + "/Reports/BourntecExtentReport.html";
         TestBase.htmlReporter = new ExtentHtmlReporter(new File(TestBase.reportName));

@@ -58,7 +58,7 @@ public class ImdbTestRunner extends AbstractTestNGCucumberTests{
             setUpExtentReports();
         }
 
-        private void setUpExtentReports() {
+        private void setUpExtentReports() throws IOException {
             TestBase.reports = new ExtentReports();
             TestBase.reportName = System.getProperty("user.dir") + "/Reports/BourntecExtentReport.html";
             TestBase.htmlReporter = new ExtentHtmlReporter(new File(TestBase.reportName));
