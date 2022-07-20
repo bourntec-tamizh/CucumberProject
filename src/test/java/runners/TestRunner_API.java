@@ -4,7 +4,6 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
-import libraries.ConfigReader;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeSuite;
 import stepDefinations.TestBase;
@@ -21,7 +20,7 @@ import java.util.Calendar;
                 plugin = {"pretty", "html:target/cucumber-html-report.html"
                         ,"html:target/cucumber_reports/cucumber_pretty.html"
                         ,"json:target/cucumber_reports/cucumberTestReport.json"
-                        //,"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter"
+                       // ,"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter"
                 },
                 glue = {"stepDefinations"},
                 tags = "@API")

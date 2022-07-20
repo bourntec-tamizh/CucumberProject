@@ -1,15 +1,15 @@
 <!--<?xml version="1.0" encoding="UTF-8"?>-->
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Test-method Suite1" >
-    <!--  <listeners>-->
-    <!--	  <listener class-name="com.beachbody.automation.listeners.ExecutionListener" />-->
-    <!--  </listeners>-->
-    <test name="Test-method test">
+     <listeners>
+    	  <listener class-name="listeners.CustomReporter" />
+    </listeners>
+    <test name="Test-method test" parallel = "methods">
         <parameter name="env" value="QA" />
         <parameter name="browser" value="chrome" />
         <!-- Test case to run -->
         <classes>
-            <class name="runners.TestRunner_API"/>
+            <class name="runners.TestRunner"/>
         </classes>
     </test>
 

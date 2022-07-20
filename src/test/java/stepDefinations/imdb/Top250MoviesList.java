@@ -1,10 +1,9 @@
 package stepDefinations.imdb;
 
-import io.cucumber.java.en.And;
+import dataProvider.ConfigReader;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import libraries.ConfigReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import stepDefinations.TestBase;

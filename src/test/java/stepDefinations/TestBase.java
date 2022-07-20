@@ -1,23 +1,22 @@
 package stepDefinations;
 
-import PageObjects.HomePage;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import libraries.ConfigReader;
+import managers.FileReaderManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.File;
+import java.net.URL;
 import java.util.*;
 
 public class TestBase {
@@ -33,6 +32,8 @@ public class TestBase {
     public static ExtentHtmlReporter htmlReporter;
     public static String reportName = null;
 
+
+
     public static void refreshBrowser() {
         pause(1000);
         driver.navigate().refresh();
@@ -42,7 +43,7 @@ public class TestBase {
         pause(1000);
     }
 
-    public static void waitForPageLoad() throws Exception {
+    public static void waitForPageLoad(){
         pause(1000);
         try {
             if (isElementcurrentlyDisplayed(By.xpath("//div[@class='loader-style']"))) {
@@ -73,7 +74,18 @@ public class TestBase {
 
         protected void LaunchChromeBrowser() {
             try {
-                System.setProperty("webdriver.chrome.silentOutput", "true");
+                //start of remote execution block
+                if(FileReaderManager.getInstance().getInstance().getConfigReader().getConfigValue("environment").equals("remote"))
+                {
+                    DesiredCapabilities dc=new DesiredCapabilities();
+                    dc.setBrowserName("chrome");
+                    dc.setPlatform(Platform.WIN10);
+                    dc.setVersion("100");
+                    driver=new RemoteWebDriver(new URL(FileReaderManager.getInstance().getConfigReader().getConfigValue("gridUrl")),dc);
+                    System.out.println("asda");
+                }
+                // end of remote execution
+                /*System.setProperty("webdriver.chrome.silentOutput", "true");
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("--start-maximized");
                 chromeOptions.addArguments("--no-sandbox");
@@ -84,10 +96,15 @@ public class TestBase {
                     chromeOptions.addArguments("--headless");
                     chromeOptions.setBinary("/usr/bin/google-chrome");
                 } else {
-                    WebDriverManager.chromedriver().setup();  //chrome browser will launch
+                    WebDriverManager.chromedriver().setup();//chrome browser will launch
                 }
                 chromeOptions.setExperimentalOption("useAutomationExtension", false);
-                driver = new ChromeDriver(chromeOptions);
+
+
+
+
+                    driver = new ChromeDriver(chromeOptions);
+               */
                 logger.info("Chrome Browser started");
             } catch (Exception e) {
                 logger.info(e);
@@ -102,9 +119,9 @@ public class TestBase {
 
         public boolean navigatetoURL() {
             try {
-                driver.get(ConfigReader.getConfigValue("URL" ));
+                driver.get(FileReaderManager.getInstance().getConfigReader().getConfigValue("URL" ));
                 logger.info("Loading:\t url");
-                test.info("Navigated to URL: "+ConfigReader.getConfigValue("URL" ));
+                test.info("Navigated to URL: "+ FileReaderManager.getInstance().getConfigReader().getConfigValue("URL" ));
             } catch (Exception e) {
                 logger.error("Unable to navigate to URL");
             }
